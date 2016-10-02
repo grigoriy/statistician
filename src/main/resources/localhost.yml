@@ -1,0 +1,6 @@
+yandex:
+  api:
+    url: http://blogs.yandex.ru/search.rss
+  max:
+    urls: 10
+    connections: 10
