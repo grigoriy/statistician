@@ -16,22 +16,18 @@ public class InBlogsWordUsageStatistician implements WordsUsageStatistician {
     private static final Logger log = LoggerFactory.getLogger(InBlogsWordUsageStatistician.class);
     private final WordFinder wordFinder;
     private final WordUsageStatisticsAssembler wordUsageStatisticsAssembler;
-//    private final Representer representer;
-    private final ExecutorService executor = Executors.newFixedThreadPool(10);
 
     public InBlogsWordUsageStatistician(WordFinder wordFinder,
                                         WordUsageStatisticsAssembler wordUsageStatisticsAssembler
-//            , Representer representer
     ) {
         this.wordFinder = wordFinder;
         this.wordUsageStatisticsAssembler = wordUsageStatisticsAssembler;
-//        this.representer = representer;
     }
 
     @Override
-//    public String measure(List<String> words) throws JsonProcessingException {
     public Map<String, Map<String,Long>> measure(List<String> words) throws JsonProcessingException {
         final Map<String, Future<Map<String, Long>>> futureStatistics = new HashMap<>(words.size() * 2);
+        final ExecutorService executor = Executors.newFixedThreadPool(10);
         for (String word : words) {
             Future<Map<String, Long>> future = executor.submit(() -> {
                 final List<String> rawData = wordFinder.find(word);
@@ -52,7 +48,6 @@ public class InBlogsWordUsageStatistician implements WordsUsageStatistician {
                 // TODO handle the missing word statistics somehow
             }
         }
-//        return representer.format(statistics);
         return statistics;
     }
 }

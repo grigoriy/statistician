@@ -31,7 +31,4 @@
 
     <!-- Configure bean to convert JSON to POJO and vice versa -->
     <bean id="jsonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
-    <bean id="wordUsageStatisticsServlet" class="com.grigoriyalexeev.statistician.web.WordUsageStatisticsServlet">
-        <constructor-arg ref="wordUsageInBlogsStatistician"/>
-    </bean>
 </beans>

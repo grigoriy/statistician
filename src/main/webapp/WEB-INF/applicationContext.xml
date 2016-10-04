@@ -13,10 +13,6 @@
           p:resources="classpath:localhost.yml"/>
     <context:property-placeholder properties-ref="yamlProperties"/>
 
-    <bean id="wordUsageServlet" class="com.grigoriyalexeev.statistician.web.WordUsageStatisticsServlet">
-        <constructor-arg name="statistician" ref="wordUsageInBlogsStatistician"/>
-        <!--<constructor-arg name="representer" ref="jsonFormatter"/>-->
-    </bean>
     <bean id="wordUsageInBlogsStatistician" class="com.grigoriyalexeev.statistician.core.InBlogsWordUsageStatistician">
         <constructor-arg name="wordFinder" ref="wordFinder"/>
         <constructor-arg name="wordUsageStatisticsAssembler" ref="wordUsageStatisticsAssembler"/>
