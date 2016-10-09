@@ -41,12 +41,10 @@ public class InBlogsWordUsageStatistician implements WordsUsageStatistician {
             try {
                 statistics.put(futureWordStatistics.getKey(), futureWordStatistics.getValue().get());
             } catch (InterruptedException e) {
-                log.error("Was interrupted", e);
                 Thread.currentThread().interrupt();
                 throw new RuntimeException(e);
             } catch (ExecutionException e) {
-                log.error("Failed to get statistics for word [{}].", futureWordStatistics.getKey(), e);
-                // TODO handle the missing word statistics somehow
+                throw new RuntimeException(String.format("Failed to get statistics for word [%s].", futureWordStatistics.getKey()), e);
             }
         }
         return statistics;
