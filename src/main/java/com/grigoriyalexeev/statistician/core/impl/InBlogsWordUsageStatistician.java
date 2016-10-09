@@ -1,6 +1,9 @@
-package com.grigoriyalexeev.statistician.core;
+package com.grigoriyalexeev.statistician.core.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.grigoriyalexeev.statistician.core.WordFinder;
+import com.grigoriyalexeev.statistician.core.WordUsageStatisticsAssembler;
+import com.grigoriyalexeev.statistician.core.WordsUsageStatistician;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,9 +20,7 @@ public class InBlogsWordUsageStatistician implements WordsUsageStatistician {
     private final WordFinder wordFinder;
     private final WordUsageStatisticsAssembler wordUsageStatisticsAssembler;
 
-    public InBlogsWordUsageStatistician(WordFinder wordFinder,
-                                        WordUsageStatisticsAssembler wordUsageStatisticsAssembler
-    ) {
+    public InBlogsWordUsageStatistician(WordFinder wordFinder, WordUsageStatisticsAssembler wordUsageStatisticsAssembler) {
         this.wordFinder = wordFinder;
         this.wordUsageStatisticsAssembler = wordUsageStatisticsAssembler;
     }
