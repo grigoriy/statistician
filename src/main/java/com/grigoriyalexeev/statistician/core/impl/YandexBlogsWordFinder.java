@@ -38,7 +38,6 @@ public class YandexBlogsWordFinder implements WordFinder {
             HttpGet request = new HttpGet(buildUrl(word));
             semaphore.acquire();
             CloseableHttpResponse response = httpClient.execute(request);
-            // TODO move extraction logic out of the restricted area for better throughput. E.g. read to byte array and parse it outside.
             List<String> result = urlsExtractor.extract(response.getEntity().getContent());
             response.close();
             semaphore.release();
