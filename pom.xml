@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.grigoriyalexeev.statistician</groupId>
     <artifactId>statistician</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -24,6 +25,7 @@
         <maven-exec-plugin-version>1.2</maven-exec-plugin-version>
         <javax.servlet.version>3.1.0</javax.servlet.version>
         <guava.version>19.0</guava.version>
+        <jetty.version>9.3.12.v20160915</jetty.version>
     </properties>
 
     <dependencyManagement>
@@ -152,7 +154,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <!--<scope>test</scope>-->
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -184,6 +185,7 @@
             <artifactId>guava</artifactId>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
@@ -223,17 +225,47 @@
                 <version>2.5</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
+                    <resources>
+                        <resource>
+                            <directory>src/main/webapp</directory>
+                            <directory>src/main/resources</directory>
+                        </resource>
+                    </resources>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.3.12.v20160915</version>
+                <version>${jetty.version}</version>
                 <configuration>
                     <scanIntervalSeconds>10</scanIntervalSeconds>
                     <webApp>
                         <contextPath>/</contextPath>
                     </webApp>
+                </configuration>
+            </plugin>
+
+            <!--Tomcat-->
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.0</version>
+                <executions>
+                    <execution>
+                        <id>tomcat-run</id>
+                        <goals>
+                            <goal>exec-war-only</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <path>/</path>
+                            <finalName>statistician.jar</finalName>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <charset>UTF-8</charset>
+                    <uriEncoding>UTF-8</uriEncoding>
                 </configuration>
             </plugin>
         </plugins>
