@@ -11,6 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Semaphore;
@@ -52,7 +55,9 @@ public class YandexBlogsWordFinder implements WordFinder {
         }
     }
 
-    private String buildUrl(String word) {
-        return String.format("%s?text=%s&numdoc=%s", yandexApiUrl, word, maxUrls);
+    private String buildUrl(String word) throws UnsupportedEncodingException {
+        return String.format("%s?text=%s&numdoc=%s", yandexApiUrl,
+                URLEncoder.encode(word, StandardCharsets.UTF_8.name()),
+                maxUrls);
     }
 }

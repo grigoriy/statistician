@@ -4,6 +4,7 @@ import com.grigoriyalexeev.statistician.core.WordsUsageStatistician;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,8 +17,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-
 @RestController
 public class WordUsageStatisticsServlet {
     private static final Logger log = LoggerFactory.getLogger(WordUsageStatisticsServlet.class);
@@ -28,7 +27,7 @@ public class WordUsageStatisticsServlet {
         this.statistician = statistician;
     }
 
-    @GetMapping(value = "/search", produces = APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     ResponseEntity<Map<String, Map<String, Long>>> doGet(@RequestParam(value = QUERY_PARAMETER) String[] words) throws IOException {
         List<String> wordsDistinct = Arrays.stream(words)
